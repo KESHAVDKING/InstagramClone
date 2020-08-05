@@ -65,10 +65,7 @@ public class Login extends AppCompatActivity {
                             if (user != null && e == null) {
                                 FancyToast.makeText(Login.this, user.get("username") + " is logged in successfully", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
 
-                                Intent intent = new Intent(Login.this, welcome.class);
-                                intent.putExtra("username", user.get("username").toString());
-
-                                startActivity(intent);
+                                transitionToWelcomePage();
 
                             } else {
                                 FancyToast.makeText(Login.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
@@ -84,5 +81,11 @@ public class Login extends AppCompatActivity {
         InputMethodManager inputMethodManager=(InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
 
+    }
+    private void transitionToWelcomePage(){
+        Intent intent = new Intent(Login.this, welcome.class);
+//                                intent.putExtra("username", usernameSignup.getText().toString());
+
+        startActivity(intent);
     }
 }

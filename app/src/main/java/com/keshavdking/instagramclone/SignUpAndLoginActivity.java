@@ -45,7 +45,8 @@ public class SignUpAndLoginActivity  extends AppCompatActivity {
 //        passwordLogin=findViewById(R.id.edtPasswordLogin);
 
         if (ParseUser.getCurrentUser()!=null){
-            ParseUser.getCurrentUser().logOut();
+//            ParseUser.getCurrentUser().logOut();
+        transitionToWelcomePage();
         }
         btnSignup=findViewById(R.id.btnSignup_Signup);
         btnLogin=findViewById(R.id.btnlogin_signup);
@@ -71,10 +72,7 @@ public class SignUpAndLoginActivity  extends AppCompatActivity {
                         public void done(ParseException e) {
                             if (e == null) {
                                 FancyToast.makeText(SignUpAndLoginActivity.this, usernameSignup.getText().toString() + " is added successfully", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
-                                Intent intent = new Intent(SignUpAndLoginActivity.this, welcome.class);
-                                intent.putExtra("username", usernameSignup.getText().toString());
-
-                                startActivity(intent);
+                               transitionToWelcomePage();
                             } else {
 
                                 FancyToast.makeText(SignUpAndLoginActivity.this, e.getMessage() + "failed to add", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
@@ -118,8 +116,19 @@ public class SignUpAndLoginActivity  extends AppCompatActivity {
 
     }
     public void emptyAreaIsTapped(View view){
-        InputMethodManager inputMethodManager=(InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+        try {
+            InputMethodManager inputMethodManager=(InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+
+    }
+    private void transitionToWelcomePage(){
+        Intent intent = new Intent(SignUpAndLoginActivity.this, welcome.class);
+//                                intent.putExtra("username", usernameSignup.getText().toString());
+
+        startActivity(intent);
     }
 }
